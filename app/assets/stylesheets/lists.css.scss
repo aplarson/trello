@@ -3,6 +3,7 @@ div.list {
   padding: 10px;
   border-radius: 5px;
   width: 200px;
+  cursor: pointer;
 }
 
 .list-title {
@@ -21,6 +22,11 @@ div.list {
   background: white;
   border-radius: 5px;
   padding: 5px;
+  cursor: pointer;
+}
+
+.card-title:hover {
+  background-color: light-grey;
 }
 
 ul.lists {
