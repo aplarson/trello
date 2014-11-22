@@ -4,8 +4,6 @@ window.TrelloClone = {
   Views: {},
   Routers: {},
   initialize: function() {
-    
-
     var boardCollection = new TrelloClone.Collections.Boards();
     var $rootEl = $('#main');
 

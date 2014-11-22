@@ -5,6 +5,7 @@ TrelloClone.Views.BoardsIndexItem = Backbone.View.extend({
     this.board = board;
     this.$el = $('<li>');
     this.$el.addClass('col-md-3');
+    this.listenTo(this.board, 'sync', this.render)
   },
 
   events: {
@@ -18,6 +19,6 @@ TrelloClone.Views.BoardsIndexItem = Backbone.View.extend({
   },
 
   showBoard: function () {
-    Backbone.history.navigate('/boards/' + this.board.id);
+    Backbone.history.navigate('/boards/' + this.board.id, {trigger: true});
   }
 })

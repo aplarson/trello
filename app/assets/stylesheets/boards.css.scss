@@ -1,4 +1,4 @@
-ul.boards {
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -17,4 +17,16 @@ ul.boards > li {
   width: 80%;
   padding: 10px;
   border-radius: 5px;
+}
+
+.board-show {
+  background: blue;
+  min-height: 600px;
+}
+
+.board-title {
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 10px;
 }

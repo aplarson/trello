@@ -2,3 +2,10 @@
 # it should include the board
 #  - its lists
 #    - the cards for each list
+json.(@board, :id, :title)
+
+json.lists do
+  json.partial!('api/lists/list', collection: @board.lists, as: :list)
+end
+
+
