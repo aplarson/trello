@@ -3,18 +3,18 @@ TrelloClone.Views.ListsShow = Backbone.CompositeView.extend({
 
   initialize: function (list) {
     this.$el = $('<li>').addClass('list');
+    this.$el.attr('id', list.id);
     this.list = list;
     this.cards = list.cards();
     this.addCards();
 
     this.listenTo(this.list, 'sync', this.render);
-    this.listenTo(this.cards, 'add', this.addCard)
+    this.listenTo(this.cards, 'add', this.addCard);
   },
 
   render: function () {
     var content = this.template({ list: this.list });
     this.$el.html(content);
-
     this.attachSubviews();
 
     return this;
@@ -22,7 +22,7 @@ TrelloClone.Views.ListsShow = Backbone.CompositeView.extend({
 
   addCards: function () {
     this.cards.each(function (card) {
-      this.addCard(card)
+      this.addCard(card);
     }.bind(this));
   },
 

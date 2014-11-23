@@ -3,6 +3,7 @@ TrelloClone.Views.CardsListItem = Backbone.View.extend({
 
   initialize: function (card) {
     this.$el = $('<li>');
+    this.$el.attr('id', card.id);
     this.card = card;
     this.listenTo(this.card, 'sync', this.render)
   },
