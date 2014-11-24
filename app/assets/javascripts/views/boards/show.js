@@ -5,11 +5,15 @@ TrelloClone.Views.BoardsShow = Backbone.CompositeView.extend({
     this.$el.addClass('container-fluid').addClass('board-show');
 
     this.board = board;
-    this.lists = board.lists();
+    this.lists = board.lists().sort();
     this.addLists();
 
     this.listenTo(this.board, 'sync', this.render);
     this.listenTo(this.lists, "add", this.addList);
+  },
+
+  events: {
+    'sortupdate .lists': 'setListOrder'
   },
 
   render: function () {
@@ -40,5 +44,23 @@ TrelloClone.Views.BoardsShow = Backbone.CompositeView.extend({
         subview.onRender && subview.onRender();
       });  
     });
+  },
+
+  setListOrder: function (event, ui) {
+    var $target = $(event.target)
+
+    if ($target.hasClass("lists")) {
+      var listIds = [];
+      
+      $target.children().each(function (idx, child) {
+        listIds.push($(child).attr('id'));
+      })
+      
+      _(listIds).each(function (id, idx) {
+        var list = this.lists.get(id);
+        list.set('ord', idx);
+        list.save();
+      }.bind(this))
+    }
   }
 })
