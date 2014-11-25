@@ -54,7 +54,7 @@ TrelloClone.Views.BoardsShow = Backbone.CompositeView.extend({
       var listIds = [];
       
       $target.children().each(function (idx, child) {
-        listIds.push($(child).attr('id'));
+        listIds.push($(child).data('id'));
       })
       
       _(listIds).each(function (id, idx) {
