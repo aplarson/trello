@@ -1,4 +1,16 @@
 <h1 class="board-title"><%= board.escape('title') %></h1>
 
-<ul class="lists">
-</ul>
+
+<div id="lists-container">
+  <ul class="lists">
+
+  </ul>
+
+  <div class="list" id="new-list">
+    <form id="new-list-form">
+      <input type="text" name="list[title]" id="list_title" class="text">
+      <input type="submit" value="Create!" class="btn create">
+    </form>
+  </div>
+</div>
+

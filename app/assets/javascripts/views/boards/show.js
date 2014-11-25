@@ -13,7 +13,8 @@ TrelloClone.Views.BoardsShow = Backbone.CompositeView.extend({
   },
 
   events: {
-    'sortupdate .lists': 'setListOrder'
+    'sortupdate .lists': 'setListOrder',
+    'submit #new-list-form': 'createList'
   },
 
   render: function () {
@@ -62,5 +63,21 @@ TrelloClone.Views.BoardsShow = Backbone.CompositeView.extend({
         list.save();
       }.bind(this))
     }
+  },
+
+  createList: function (event) {
+    event.preventDefault();
+
+    var params = $(event.target).serializeJSON();
+    var list = new TrelloClone.Models.List(params["list"]);
+    var lists = this.lists;
+    list.set('ord', lists.length);
+    list.set('board_id', this.board.id)
+    list.save([], {
+      success: function () {
+        $('#list_title').val('');
+        lists.add(list);
+      }
+    })
   }
 })

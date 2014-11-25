@@ -17,16 +17,20 @@ TrelloClone.Views.ListsShow = Backbone.CompositeView.extend({
     this.$el.html(content);
     this.attachSubviews();
 
+    this.onRender();
     return this;
   },
 
   events: {
     'sortremove .cards': 'removeCard',
     'sortupdate .cards': 'setCardOrder',
-    'sortreceive .cards': 'insertCard'
+    'sortreceive .cards': 'insertCard',
+    'submit .new-card-form': 'createCard'
   },
 
   addCards: function () {
+    this.$('ul.cards').empty();
+    this.subviews()['ul.cards'] = [];
     this.cards.each(function (card) {
       this.addCard(card);
     }.bind(this));
@@ -64,10 +68,40 @@ TrelloClone.Views.ListsShow = Backbone.CompositeView.extend({
     var model = new TrelloClone.Models.Card({ id: modelId });
     var listId = this.list.id;
     model.save({ 'list_id': listId })
+    this.list.cards().add(model, {
+      silent: true
+    });
+    this.setCardOrder(event);
+    this.cards = this.list.cards().sort();
+    
+    this.addCards();
   },
 
   removeCard: function (event, ui) {
     var list = this.list;
+    var modelId = $(ui.item[0]).attr('id');
+    var model = new TrelloClone.Models.Card({ id: modelId });
+    list.cards().remove(model);
+    var removedView = _(this.subviews()['ul.cards']).find(function (subview) {
+      return subview.id === modelId;
+    })
+    this.cards = list.cards().sort();
+    this.addCards();
+  },
 
+  createCard: function (event) {
+    event.preventDefault();
+
+    var params = $(event.target).serializeJSON();
+    var card = new TrelloClone.Models.Card(params["card"]);
+    var cards = this.cards;
+    card.set('ord', cards.length);
+    card.set('list_id', this.list.id)
+    card.save([], {
+      success: function () {
+        $(event.target).find('.card-title-input').val('');
+        cards.add(card);
+      }
+    })
   }
 })

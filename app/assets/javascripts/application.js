@@ -16,6 +16,7 @@
 //= require underscore
 //= require backbone
 //= require bootstrap
+//= require serializejson
 //= require trello_clone
 //= require_tree ../templates
 //= require_tree ./utils

@@ -17,10 +17,12 @@ ul.boards > li {
   width: 80%;
   padding: 10px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .board-show {
   background: blue;
+  overflow-x: scroll;
   min-height: 600px;
 }
 
@@ -29,4 +31,33 @@ ul.boards > li {
   font-size: 1.5em;
   font-weight: bold;
   padding: 10px;
+}
+
+.new-board {
+  background: lightgrey;
+}
+
+.new-board:hover {
+  background: grey;
+}
+
+#new-board-container {
+  padding: 0px;
+}
+
+.create {
+  background: green;
+}
+
+input {
+  display: block;
+  width: 90%;
+}
+
+.btn.create {
+  display: block;
+}
+
+input.text {
+  cursor: text;
 }
